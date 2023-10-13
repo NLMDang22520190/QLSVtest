@@ -55,7 +55,11 @@ namespace QLSVtest
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(pathTextBox.Text))
+            if(File.Exists(pathTextBox.Text))
+            {
+                MessageBox.Show("File's name already exist. Please choose another name.");
+            }
+            else if (!string.IsNullOrEmpty(pathTextBox.Text))
             {
                 var TruongOfExport = new Truong(pathLop, sinhVienInfoLength);
                 if(allBtn.Checked)
