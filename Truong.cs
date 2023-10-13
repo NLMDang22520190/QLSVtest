@@ -93,6 +93,7 @@ namespace QLSVtest
                         //Console.WriteLine("Sinh vien o lop " + finfo.Name);
                         var Form5 = new Form5(pathLop, sinhVienInfoLength);
                         Form5.StartPosition = FormStartPosition.CenterScreen;
+                        Form5.Name = "Result";
 
                         string[] labelsName = { "STT", "MaLop", "MSSV", "HoTen","DToan",
                                 "DAnh", "DVan", "DTB"  };
@@ -102,7 +103,6 @@ namespace QLSVtest
                         Form5.SetFormSize(1);
                         Form5.Show();
 
-                        sinhVienCanTim.Xuat();
                         break;
                     }
 
@@ -130,12 +130,24 @@ namespace QLSVtest
                 }
                 if (dsSinhVienCanTim.Count > 0)
                 {
-                    Console.WriteLine("Tim thay");
+                    var Form5 = new Form5(pathLop, sinhVienInfoLength);
+                    Form5.StartPosition = FormStartPosition.CenterScreen;
+                    Form5.Name = "Result";
+
+                    string[] labelsName = { "STT", "MaLop", "MSSV", "HoTen","DToan",
+                                "DAnh", "DVan", "DTB"  };
+
+                    Form5.AddLabelToForm(labelsName, 0);
+
                     for (int i = 0; i < dsSinhVienCanTim.Count; i++)
-                        dsSinhVienCanTim[i].Xuat();
+                        Form5.AddLabelToForm(dsSinhVienCanTim[i].SinhVienDataToLine(i), i+1);
+
+                    Form5.SetFormSize(dsSinhVienCanTim.Count);
+                    Form5.Show();
+
                 }
                 else
-                    Console.WriteLine("Khong tim thay ten sinh vien");
+                    MessageBox.Show("Sinh Vien with Name " + input + " not found.");
             }
         }
 
@@ -301,6 +313,6 @@ namespace QLSVtest
             end:;
         }
 
-        
+
     }
 }

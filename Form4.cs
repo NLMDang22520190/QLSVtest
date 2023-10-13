@@ -37,7 +37,7 @@ namespace QLSVtest
             }
             else
                 MessageBox.Show("Searched info cant be Null");
-          
+
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

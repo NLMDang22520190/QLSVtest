@@ -41,7 +41,7 @@ namespace QLSVtest
         public void SetFormSize(int i)
         {
             this.Width = 900;
-            this.Height = 100 + 50 * i;
+            this.Height = 100 + 40 * i;
         }
     }
 }

@@ -81,7 +81,7 @@
             Controls.Add(srchTextBox);
             Controls.Add(srchLabel);
             Name = "Form4";
-            Text = "Search";
+            Text = "SearchBox";
             ResumeLayout(false);
             PerformLayout();
         }
