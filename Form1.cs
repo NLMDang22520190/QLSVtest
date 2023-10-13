@@ -38,7 +38,20 @@ namespace QLSVtest
             var Form4 = new Form4(pathLop, sinhVienInfoLength);
             Form4.StartPosition = FormStartPosition.CenterParent;
             Form4.ShowDialog();
+        }
 
+        private void topBtn_Click(object sender, EventArgs e)
+        {
+            var Form6 = new Form6(pathLop, sinhVienInfoLength);
+            Form6.StartPosition = FormStartPosition.CenterParent;
+            Form6.ShowDialog();
+        }
+
+        private void expBtn_Click(object sender, EventArgs e)
+        {
+            var Form7 = new Form7(pathLop, sinhVienInfoLength);
+            Form7.StartPosition = FormStartPosition.CenterParent;
+            Form7.ShowDialog();
         }
     }
 }

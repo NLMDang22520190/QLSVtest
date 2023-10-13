@@ -73,6 +73,7 @@
             expBtn.TabIndex = 3;
             expBtn.Text = "EXPORT";
             expBtn.UseVisualStyleBackColor = true;
+            expBtn.Click += expBtn_Click;
             // 
             // topBtn
             // 
@@ -82,6 +83,7 @@
             topBtn.TabIndex = 4;
             topBtn.Text = "TOP";
             topBtn.UseVisualStyleBackColor = true;
+            topBtn.Click += topBtn_Click;
             // 
             // Form1
             // 

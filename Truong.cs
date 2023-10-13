@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -140,7 +141,7 @@ namespace QLSVtest
                     Form5.AddLabelToForm(labelsName, 0);
 
                     for (int i = 0; i < dsSinhVienCanTim.Count; i++)
-                        Form5.AddLabelToForm(dsSinhVienCanTim[i].SinhVienDataToLine(i), i+1);
+                        Form5.AddLabelToForm(dsSinhVienCanTim[i].SinhVienDataToLine(i), i + 1);
 
                     Form5.SetFormSize(dsSinhVienCanTim.Count);
                     Form5.Show();
@@ -198,7 +199,7 @@ namespace QLSVtest
                         currentLopOfExport.XuatRaFileAll(sw, khoangCach1, khoangCach2, ref i);
                     }
                 }
-                Console.WriteLine("Xuat thanh cong");
+                MessageBox.Show("Exported");
             }
 
             else if (File.Exists(pathMaLop))
@@ -215,11 +216,11 @@ namespace QLSVtest
                 {
                     currentLopOfExport.XuatRaFile(sw, khoangCach1, khoangCach2);
                 }
-                Console.WriteLine("Xuat thanh cong");
+                MessageBox.Show("Exported");
             }
             else
             {
-                Console.WriteLine("Sai cu phap hoac khong tim thay lop");
+                MessageBox.Show("Lop doesnt exist");
             }
         }
 
@@ -242,11 +243,16 @@ namespace QLSVtest
                 }
             }
             int sLSV = dsTatCaSinhVien.Count; // lay so luong sinh vien hien co
-            int n = int.Parse(input);
+            if (int.TryParse(input, out int n) == false || n <= 0)
+            {
+                MessageBox.Show("Wrong input of N ");
+                goto end;
+            }
+            
 
             if (n > sLSV)
             {
-                Console.WriteLine("Top sinh vien khong the vuot qua so luong sinh vien hien co");
+                MessageBox.Show("Top sinh vien khong the vuot qua so luong sinh vien hien co");
                 goto end;
             }
 
@@ -268,13 +274,12 @@ namespace QLSVtest
 
                     dsSinhVienTop.Add(dsTatCaSinhVien[firstMaxDiemIndex]);
 
-                    if ((dsSinhVienTop.Count >= n && dsTatCaSinhVien[firstMaxDiemIndex].DTB != dsTatCaSinhVien[secondMaxDiemIndex].DTB) || dsSinhVienTop.Count == sLSV)
+                    if ((dsSinhVienTop.Count >= n && (dsTatCaSinhVien[firstMaxDiemIndex].DTB != dsTatCaSinhVien[secondMaxDiemIndex].DTB || firstMaxDiemIndex == secondMaxDiemIndex)) || dsSinhVienTop.Count == sLSV)
                         break;
 
                     dsTatCaSinhVien.RemoveAt(firstMaxDiemIndex);
                 } while (true);
 
-                Console.WriteLine("Top " + n + " sinh vien co diem cao nhat");
             }
             else if (status.ToLower() == "false")
             {
@@ -294,13 +299,12 @@ namespace QLSVtest
 
                     dsSinhVienTop.Add(dsTatCaSinhVien[firstMinDiemIndex]);
 
-                    if ((dsSinhVienTop.Count >= n && dsTatCaSinhVien[firstMinDiemIndex].DTB != dsTatCaSinhVien[secondMinDiemIndex].DTB) || dsSinhVienTop.Count == sLSV)
+                    if ((dsSinhVienTop.Count >= n && (dsTatCaSinhVien[firstMinDiemIndex].DTB != dsTatCaSinhVien[secondMinDiemIndex].DTB || firstMinDiemIndex == secondMinDiemIndex)) || dsSinhVienTop.Count == sLSV)
                         break;
 
                     dsTatCaSinhVien.RemoveAt(firstMinDiemIndex);
                 } while (true);
 
-                Console.WriteLine("Top " + n + " sinh vien co diem thap nhat");
             }
             else
             {
@@ -308,9 +312,22 @@ namespace QLSVtest
                 goto end;
             }
 
+            var Form5 = new Form5(pathLop, sinhVienInfoLength);
+            Form5.StartPosition = FormStartPosition.CenterScreen;
+            Form5.Name = "Result";
+
+            string[] labelsName = { "STT", "MaLop", "MSSV", "HoTen","DToan",
+                                "DAnh", "DVan", "DTB"  };
+
+            Form5.AddLabelToForm(labelsName, 0);
+
             for (int i = 0; i < dsSinhVienTop.Count; i++)
-                dsSinhVienTop[i].Xuat();
-            end:;
+                Form5.AddLabelToForm(dsSinhVienTop[i].SinhVienDataToLine(i), i + 1);
+
+            Form5.SetFormSize(dsSinhVienTop.Count);
+            Form5.Show();
+
+        end:;
         }
 
 
